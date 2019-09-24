@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-leyu" version="0.0.1" 
+  xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>leyu</name>
+  <js-module name="leyu" src="www/leyu.js">
+    <clobbers target="cordova.plugins.leyu" />
+  </js-module>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="leyu">
+        <param name="android-package" value="com.yokins.LeYu" />
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+    <source-file src="src/android/LeYu.java" target-dir="src/com/yokins" />
+    <source-file src="src/android/LeyuService.aidl" target-dir="src/com/leyu" />
+  </platform>
+</plugin>

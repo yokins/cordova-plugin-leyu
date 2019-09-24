@@ -1,0 +1,17 @@
+{
+  "name": "cordova-plugin-leyu",
+  "version": "0.0.1",
+  "description": "乐愚接口",
+  "cordova": {
+    "id": "cordova-plugin-leyu",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "yokins (接口)",
+  "license": "ISC"
+}
