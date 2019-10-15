@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-leyu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "乐愚接口",
   "cordova": {
     "id": "cordova-plugin-leyu",
