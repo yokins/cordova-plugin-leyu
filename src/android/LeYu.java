@@ -48,31 +48,10 @@ public class LeYu extends CordovaPlugin {
         connected = context.bindService(intent, connection, context.BIND_AUTO_CREATE);
     }
 
-    // @Override
-    // protected void onCreate(Bundle savedInstanceState) {
-    //     super.onCreate(savedInstanceState);
-    //     setContentView(R.layout.activity_main);
-    //     attemptToBindService();
-    // }
-
-    // @Override
-    // protected void onDestroy() {
-    //     if(connection!=null) {
-    //         unbindService(connection);
-    //         connection=null;
-    //     }
-    //     super.onDestroy();
-    // }
-
-
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("openTp")) {
-            this.openTp();
-            return true;
-        }
-        if (action.equals("closeTp")) {
-            this.closeTp();
+            this.attemptToBindService();
             return true;
         }
         if (action.equals("getTpEnable")) {
@@ -88,27 +67,10 @@ public class LeYu extends CordovaPlugin {
         return false;
     }
 
-    public void openTp(){
-        try {
-            attemptToBindService();
-            callbackContext.success();
-        } catch (RemoteException e) {
-            callbackContext.error("开启乐愚状态失败！");
-            e.printStackTrace();
-        }
-    }
-
-    public void closeTp(){
-        if(connection!=null) {
-            unbindService(connection);
-            connection=null;
-        } 
-    }
-
     public void getTpEnable(CallbackContext callbackContext){
         try {
             boolean enable = leyuService.getTpEnable();
-            callbackContext.success(enable);
+            callbackContext.success("enable");
         } catch (RemoteException e) {
             callbackContext.error("获取乐愚状态失败！");
             e.printStackTrace();

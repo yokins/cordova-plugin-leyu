@@ -6,6 +6,10 @@ const leyu = {
   //   console.log('coolMethod, in');
   // },
 
+  openTp: function() {
+    exec(()=> {}, () => {}, 'LeYu', 'openTp', [])
+  },
+
   // 设置
   setTpEnable: function(enable) {
     console.info('---leyu---setTpEnable---');
