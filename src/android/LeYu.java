@@ -96,7 +96,7 @@ public class LeYu extends CordovaPlugin {
     public void getTpEnable(CallbackContext callbackContext){
         try {
             boolean enable = leyuService.getTpEnable();
-            callbackContext.success({ message: "获取乐愚状态成功！", enable: enable });
+            callbackContext.success("获取乐愚状态成功！", enable);
         } catch (RemoteException e) {
             callbackContext.error("获取乐愚状态失败！");
             e.printStackTrace();
@@ -106,7 +106,7 @@ public class LeYu extends CordovaPlugin {
     public void setTpEnable(boolean enable, CallbackContext callbackContext){
         try {
             leyuService.setTpEnable(enable);
-            callbackContext.success({ message: "设置乐愚状态成功！", enable: enable });
+            callbackContext.success("设置乐愚状态成功！", enable);
         } catch (RemoteException e) {
             callbackContext.error("设置乐愚状态失败！");
             e.printStackTrace();

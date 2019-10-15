@@ -11,8 +11,8 @@ const leyu = {
     console.info('---leyu---setTpEnable---');
     return new Promise(resolve => {
       exec(
-        success => {
-          console.info(`${success.message}：` + success.enable);
+        (msg, enable) => {
+          console.info(`${msg}：` + enable);
           resolve({ status: true });
         },
         error => {
@@ -31,8 +31,8 @@ const leyu = {
     console.info('---leyu---getTpEnable---');
     return new Promise(resolve => {
       exec(
-        success => {
-          console.info(`${success.message}：` + success.enable);
+        (msg, enable) => {
+          console.info(`${msg}：` + enable);
           resolve({ status: true, enable: enable });
         },
         error => {
