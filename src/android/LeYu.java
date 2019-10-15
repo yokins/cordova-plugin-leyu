@@ -21,6 +21,7 @@ import aidl.com.leyu.LeyuService;
  * This class echoes a string called from JavaScript.
  */
 public class LeYu extends CordovaPlugin {
+    private static Context context;
     private LeyuService leyuService;
     private boolean connected = false;
     private ServiceConnection connection = new ServiceConnection() {
@@ -41,7 +42,7 @@ public class LeYu extends CordovaPlugin {
         }
     };
 
-    private void attemptToBindService(Context context) {
+    private void attemptToBindService() {
         Intent intent = new Intent();
         intent.setComponent(new
                 ComponentName("com.android.settings", "com.android.settings.LeyuInterfaceService"));
