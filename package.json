@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-leyu",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "乐愚底层插件",
   "cordova": {
     "id": "cordova-plugin-leyu",
