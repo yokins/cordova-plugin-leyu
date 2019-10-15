@@ -13,5 +13,13 @@
     "cordova-android"
   ],
   "author": "yokins (接口)",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yokins/cordova-plugin-leyu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yokins/cordova-plugin-leyu/issues"
+  },
+  "homepage": "https://github.com/yokins/cordova-plugin-leyu#readme"
 }
