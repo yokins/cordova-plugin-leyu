@@ -11,12 +11,10 @@ const leyu = {
     console.info('---leyu---setTpEnable---');
     return new Promise(resolve => {
       exec(
-        (msg, enable) => {
-          console.info(`${msg}：` + enable);
+        () => {
           resolve({ status: true });
         },
-        error => {
-          console.info(error);
+        () => {
           resolve({ status: false });
         },
         'LeYu',
@@ -31,12 +29,10 @@ const leyu = {
     console.info('---leyu---getTpEnable---');
     return new Promise(resolve => {
       exec(
-        (msg, enable) => {
-          console.info(`${msg}：` + enable);
+        enable => {
           resolve({ status: true, enable: enable });
         },
-        error => {
-          console.info(error);
+        () => {
           resolve({ status: false });
         },
         'LeYu',
@@ -48,4 +44,3 @@ const leyu = {
 };
 
 module.exports = leyu;
-

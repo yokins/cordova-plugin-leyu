@@ -48,30 +48,33 @@ public class LeYu extends CordovaPlugin {
         connected = context.bindService(intent, connection, context.BIND_AUTO_CREATE);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        attemptToBindService();
-    }
+    // @Override
+    // protected void onCreate(Bundle savedInstanceState) {
+    //     super.onCreate(savedInstanceState);
+    //     setContentView(R.layout.activity_main);
+    //     attemptToBindService();
+    // }
 
-    @Override
-    protected void onDestroy() {
-        if(connection!=null) {
-            unbindService(connection);
-            connection=null;
-        }
-        super.onDestroy();
-    }
+    // @Override
+    // protected void onDestroy() {
+    //     if(connection!=null) {
+    //         unbindService(connection);
+    //         connection=null;
+    //     }
+    //     super.onDestroy();
+    // }
 
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        // if (action.equals("coolMethod")) {
-        //     String message = args.getString(0);
-        //     this.coolMethod(message, callbackContext);
-        //     return true;
-        // }
+        if (action.equals("openTp")) {
+            this.openTp();
+            return true;
+        }
+        if (action.equals("closeTp")) {
+            this.closeTp();
+            return true;
+        }
         if (action.equals("getTpEnable")) {
             this.getTpEnable(callbackContext);
             return true;
@@ -85,18 +88,27 @@ public class LeYu extends CordovaPlugin {
         return false;
     }
 
-    // private void coolMethod(String message, CallbackContext callbackContext) {
-    //     if (message != null && message.length() > 0) {
-    //         callbackContext.success(message);
-    //     } else {
-    //         callbackContext.error("Expected one non-empty string argument.");
-    //     }
-    // }
+    public void openTp(){
+        try {
+            attemptToBindService();
+            callbackContext.success();
+        } catch (RemoteException e) {
+            callbackContext.error("开启乐愚状态失败！");
+            e.printStackTrace();
+        }
+    }
+
+    public void closeTp(){
+        if(connection!=null) {
+            unbindService(connection);
+            connection=null;
+        } 
+    }
 
     public void getTpEnable(CallbackContext callbackContext){
         try {
             boolean enable = leyuService.getTpEnable();
-            callbackContext.success("获取乐愚状态成功！", enable);
+            callbackContext.success(enable);
         } catch (RemoteException e) {
             callbackContext.error("获取乐愚状态失败！");
             e.printStackTrace();
@@ -106,83 +118,10 @@ public class LeYu extends CordovaPlugin {
     public void setTpEnable(boolean enable, CallbackContext callbackContext){
         try {
             leyuService.setTpEnable(enable);
-            callbackContext.success("设置乐愚状态成功！", enable);
+            callbackContext.success();
         } catch (RemoteException e) {
             callbackContext.error("设置乐愚状态失败！");
             e.printStackTrace();
         }
     }
-
-
-
-    // @Override
-    // public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-    //     if (action.equals("coolMethod")) {
-    //         String message = args.getString(0);
-    //         this.coolMethod(message, callbackContext);
-    //         return true;
-    //     }
-    //     if (action.equals("getTpEnable")) {
-    //         this.getTpEnable();
-    //         return true;
-    //     }
-    //     if (action.equals("setTpEnable")) {
-    //         this.setTpEnable(true);
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    // private LeyuService leyuService;
-    // private boolean connected = false;
-    // private ServiceConnection connection = new ServiceConnection() {
-
-    //     @Override
-    //     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-    //         leyuService = LeyuService.Stub.asInterface(iBinder); 
-    //         if(leyuService!=null) {
-    //             connected = true; 
-    //         } else {
-    //             connected =false; 
-    //         }
-    //     }
-
-    //     @Override
-    //     public void onServiceDisconnected(ComponentName componentName) {
-    //         connected = false; 
-    //     }
-    // };
-
-    // private void attemptToBindService(Context context) {
-    //     Intent intent = new Intent();
-    //     intent.setComponent(new
-    //             ComponentName("com.android.settings", "com.android.settings.LeyuInterfaceService"));
-    //     connected = context.bindService(intent, connection, context.BIND_AUTO_CREATE);
-    // }
-
-    // private void coolMethod(String message, CallbackContext callbackContext) {
-    //     if (message != null && message.length() > 0) {
-    //         callbackContext.success(message);
-    //     } else {
-    //         callbackContext.error("Expected one non-empty string argument.");
-    //     }
-    // }
-
-    // private void setTpEnable(boolean enable) {
-    //     try {
-    //         leyuService.setTpEnable(enable);
-    //     } catch (RemoteException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
-    // private boolean getTpEnable() {
-    //     boolean enable = false;
-    //     try {
-    //         enable = leyuService.getTpEnable();
-    //     } catch (RemoteException e) {
-    //         e.printStackTrace();
-    //     }
-    //     return enable;
-    // }
 }
