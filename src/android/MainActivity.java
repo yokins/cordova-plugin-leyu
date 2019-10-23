@@ -20,7 +20,7 @@ import aidl.com.leyu.LeyuService;
 
 public class MainActivity extends CordovaActivity
 {
-
+    private CordovaWebView appView;
     private LeyuService leyuService;
     private boolean connected =false;
     private ServiceConnection connection = new ServiceConnection() {
