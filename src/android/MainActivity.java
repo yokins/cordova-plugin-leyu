@@ -1,7 +1,5 @@
 package com.yokins;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,7 +18,7 @@ import android.widget.Toast;
 
 import aidl.com.leyu.LeyuService;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private WebView mWebView;
 
