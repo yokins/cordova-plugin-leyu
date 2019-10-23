@@ -46,7 +46,7 @@ public class LeYu extends CordovaPlugin {
         Intent intent = new Intent();
         intent.setComponent(new
                 ComponentName("com.android.settings", "com.android.settings.LeyuInterfaceService"));
-        connected = context.bindService(intent, connection, context.BIND_AUTO_CREATE);
+        connected = context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
