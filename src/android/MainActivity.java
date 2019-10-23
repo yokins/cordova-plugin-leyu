@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import android.webkit.WebView;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
@@ -19,7 +20,7 @@ import org.apache.cordova.*;
 import aidl.com.leyu.LeyuService;
 
 public class MainActivity extends CordovaActivity
-{
+{   
     private CordovaWebView appView;
     private LeyuService leyuService;
     private boolean connected =false;
@@ -69,21 +70,10 @@ public class MainActivity extends CordovaActivity
     }
     
     private void initView(){
-        //mWebView = findViewById(R.id.web);
-        // 得到设置属性的对象
-        //WebSettings webSettings = mWebView.getSettings();
-        WebSettings webSettings = appView.getSettings();
-        // 使能JavaScript
-        //webSettings.setJavaScriptEnabled(true);
+        WebView webView = (WebView) appView.getView();
+        WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        // 载入页面：本地html资源文件
-        //mWebView.loadUrl("file:///android_asset/sample.html");
-        // WebViewClient 主要帮助WebView处理各种通知、请求事件的
-        //mWebView.setWebViewClient(new WebViewClient());
-        appView.setWebViewClient(new WebViewClient());
-        // 传入一个Java对象和一个接口名,在JavaScript代码中用这个接口名代替这个对象,通过接口名调用Android接口的方法
-        //mWebView.addJavascriptInterface(new MainActivity.MyJsInteration(this),"Android");
-        appView.addJavascriptInterface(new MyJsInteration(this),"Android");
+        webView.addJavascriptInterface(new MyJsInteration(this),"leyu");
     }
 
     public  class  MyJsInteration {
