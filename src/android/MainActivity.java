@@ -33,6 +33,7 @@ public class MainActivity extends CordovaActivity
             } else {
                 connected = false;
             }
+            // Log.i(TAG, "connected:"+connected);
         }
 
         @Override
@@ -73,7 +74,7 @@ public class MainActivity extends CordovaActivity
         WebView webView = (WebView) appView.getView();
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new MyJsInteration(this),"leyu");
+        webView.addJavascriptInterface(new MyJsInteration(this),"Android");
     }
 
     public  class  MyJsInteration {
