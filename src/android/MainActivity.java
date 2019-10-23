@@ -33,7 +33,7 @@ public class MainActivity extends CordovaActivity
             } else {
                 connected = false;
             }
-            Log.i(TAG, "connected:"+connected);
+            Log.i(TAG, "yokins-log connected:" + connected);
         }
 
         @Override
