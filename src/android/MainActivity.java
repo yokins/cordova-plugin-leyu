@@ -39,6 +39,7 @@ public class MainActivity extends CordovaActivity
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             connected = false;
+            Log.i(TAG, "yokins-log onServiceDisconnected:");
         }
     };
 
@@ -47,6 +48,7 @@ public class MainActivity extends CordovaActivity
         intent.setComponent(new
                 ComponentName("com.android.settings", "com.android.settings.LeyuInterfaceService"));
         connected = this.bindService(intent , connection ,BIND_AUTO_CREATE);
+        Log.i(TAG, "yokins-log attemptToBindService:");
     }
 
     @Override
@@ -60,6 +62,7 @@ public class MainActivity extends CordovaActivity
         loadUrl(launchUrl);
         initView();
         attemptToBindService();
+        Log.i(TAG, "yokins-log onCreate:");
     }
 
     @Override
@@ -75,6 +78,7 @@ public class MainActivity extends CordovaActivity
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new MyJsInteration(this),"Android");
+        Log.i(TAG, "yokins-log initView:");
     }
 
     public  class  MyJsInteration {
@@ -83,14 +87,17 @@ public class MainActivity extends CordovaActivity
         MyJsInteration(Context context){
             mContext = context;
         }
+
         @JavascriptInterface //一定要写，不然h5调不到这个方法
         public void getTpEnable(){
             getEnable();
+            Log.i(TAG, "yokins-log getTpEnable:");
         }
 
         @JavascriptInterface //一定要写，不然h5调不到这个方法
         public void setTpEnable(boolean enable){
             setEnable(enable);
+            Log.i(TAG, "yokins-log setTpEnable:");
         }
 
         private void setEnable(boolean enable){
