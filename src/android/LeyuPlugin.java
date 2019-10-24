@@ -64,11 +64,11 @@ public class LeyuPlugin extends CordovaPlugin {
             if(enable){
                 //Toast.makeText(mContext, "当前状态:禁止手指", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "enable finger");
-                callbackContext.success('true')
+                callbackContext.success("true")
             }else {
                 //Toast.makeText(mContext, "当前状态:允许手指", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "disable finger");
-                callbackContext.error('false')
+                callbackContext.error("false")
             }
         } catch (RemoteException e) {
             Log.e(TAG, "getTpEnable-error:"+e);//lishunbo add
