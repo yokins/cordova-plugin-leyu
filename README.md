@@ -18,7 +18,9 @@
 - 获取服务状态
 ```
   // 返回状态： true 关闭手写 / false 开启手写
-  cordova.plugins.LeyuPlugin.getTpEnable()
+  cordova.plugins.LeyuPlugin.getTpEnable().then(res => {
+    console.log(res)
+  })
 ```
 
 - 设置是否手写
