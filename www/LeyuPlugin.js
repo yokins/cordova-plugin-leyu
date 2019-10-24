@@ -49,42 +49,6 @@ const leyu = {
   setTpEnable: function(enable) {
     exec(() => {}, () => {}, 'LeyuPlugin', 'setTpEnable', [enable]);
   }
-  // coolMethod: function(arg0, success, error) {
-  //   exec(success, error, 'LeYu', 'coolMethod', [arg0]);
-  //   console.log('coolMethod, in');
-  // },
-  // setTpEnable: function(enable) {
-  //   console.info('---LeyuPlugin---setTpEnable---');
-  //   return new Promise(resolve => {
-  //     exec(
-  //       () => {
-  //         resolve({ status: true });
-  //       },
-  //       () => {
-  //         resolve({ status: false });
-  //       },
-  //       'LeyuPlugin',
-  //       'setTpEnable',
-  //       [{ enable: enable }]
-  //     );
-  //   });
-  // },
-  // getTpEnable: function() {
-  //   console.info('---LeyuPlugin---getTpEnable---');
-  //   return new Promise(resolve => {
-  //     exec(
-  //       enable => {
-  //         resolve({ status: true, enable: enable });
-  //       },
-  //       () => {
-  //         resolve({ status: false });
-  //       },
-  //       'LeyuPlugin',
-  //       'getTpEnable',
-  //       []
-  //     );
-  //   });
-  // }
 };
 
 module.exports = leyu;
