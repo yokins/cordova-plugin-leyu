@@ -16,9 +16,9 @@ import aidl.com.leyu.LeyuService;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class Leyu extends CordovaPlugin {
+public class LeyuPlugin extends CordovaPlugin {
 
-    private final String TAG = "Leyu";
+    private final String TAG = "LeyuPlugin";
     private LeyuService leyuService;
     private boolean connected =false;
 

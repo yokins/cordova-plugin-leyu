@@ -2,19 +2,18 @@
 <plugin id="cordova-plugin-leyu" version="0.0.1" 
   xmlns="http://apache.org/cordova/ns/plugins/1.0" 
   xmlns:android="http://schemas.android.com/apk/res/android">
-  <name>leyu</name>
-  <js-module name="leyu" src="www/leyu.js">
-    <clobbers target="cordova.plugins.leyu" />
+  <name>LeyuPlugin</name>
+  <js-module name="LeyuPlugin" src="www/LeyuPlugin.js">
+    <clobbers target="cordova.plugins.LeyuPlugin" />
   </js-module>
   <platform name="android">
     <config-file parent="/*" target="res/xml/config.xml">
-      <feature name="LeYu">
-        <param name="android-package" value="com.yokins.LeYu" />
+      <feature name="LeyuPlugin">
+        <param name="android-package" value="com.yokins.LeyuPlugin" />
       </feature>
     </config-file>
     <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-    <source-file src="src/android/LeYu.java" target-dir="src/com/yokins" />
-    <source-file src="src/android/MainActivity.java" target-dir="src/com/yokins" />
+    <source-file src="src/android/LeyuPlugin.java" target-dir="src/com/yokins" />
     <source-file src="src/android/LeyuService.aidl" target-dir="src/com/leyu" />
   </platform>
 </plugin>
