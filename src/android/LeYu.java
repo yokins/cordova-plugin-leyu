@@ -2,89 +2,106 @@ package com.yokins;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.content.ServiceConnection;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.Context;
+import android.util.Log;
 
 import aidl.com.leyu.LeyuService;
 
 /**
  * This class echoes a string called from JavaScript.
  */
-public class LeYu extends CordovaPlugin {
-    private static Context context;
-    private LeyuService leyuService;
-    private boolean connected = false;
-    private ServiceConnection connection = new ServiceConnection() {
+public class Leyu extends CordovaPlugin {
 
+    private final String TAG = "Leyu";
+    private LeyuService leyuService;
+    private boolean connected =false;
+
+    private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            leyuService = LeyuService.Stub.asInterface(iBinder); 
-            if(leyuService!=null) {
-                connected = true; 
+            leyuService = LeyuService.Stub.asInterface(iBinder);
+            if (leyuService != null) {
+                connected = true;
             } else {
-                connected =false; 
+                connected = false;
             }
+            Log.i(TAG, "connected:"+connected);//lishunbo add
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            connected = false; 
+            connected = false;
         }
     };
 
     private void attemptToBindService() {
+        Log.i(TAG, "attemptToBindService:");//lishunbo add
         Intent intent = new Intent();
         intent.setComponent(new
                 ComponentName("com.android.settings", "com.android.settings.LeyuInterfaceService"));
-        connected = context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        connected = cordova.getActivity().bindService(intent , connection ,cordova.getActivity().BIND_AUTO_CREATE);
+    }
+
+    private void setTpEnable(boolean enable){
+        Log.i(TAG, "setTpEnable:"+enable);//lishunbo add
+        try {
+            leyuService.setTpEnable(enable);
+        } catch (RemoteException e) {
+            Log.e(TAG, "setTpEnable-error:"+e);//lishunbo add
+            e.printStackTrace();
+        }
+    }
+    private void getTpEnable(){
+        Log.i(TAG, "getTpEnable:");//lishunbo add
+        try {
+            boolean enable = leyuService.getTpEnable();
+            if(enable){
+                //Toast.makeText(mContext, "当前状态:禁止手指", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "enable finger");
+            }else {
+                //Toast.makeText(mContext, "当前状态:允许手指", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "disable finger");
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "getTpEnable-error:"+e);//lishunbo add
+            e.printStackTrace();
+        }
+    }
+
+    private void unbindService() {
+        Log.i(TAG, "unbindService:");//lishunbo add
+        cordova.getActivity().unbindService(connection);
     }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("openTp")) {
-            this.attemptToBindService();
+        Log.i(TAG, "execute:"+action);//lishunbo add
+        if("attemptToBindService".equals(action)){
+            //String content = args.getString(0);
+            attemptToBindService();
+            callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
             return true;
-        }
-        if (action.equals("getTpEnable")) {
-            this.getTpEnable(callbackContext);
+        } else if ("unbindService".equals(action)) {
+            unbindService();
+            callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
             return true;
-        }
-        if (action.equals("setTpEnable")) {
-            JSONObject jsonObject = args.getJSONObject(0);
-            boolean enable = jsonObject.getBoolean("enable");
-            this.setTpEnable(enable, callbackContext);
+        } else if ("getTpEnable".equals(action)) {
+            getTpEnable();
+            callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
+            return true;
+        } else if ("setTpEnable".equals(action)) {
+            boolean enabled = args.getBoolean(0);
+            setTpEnable(enabled);
+            callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
             return true;
         }
         return false;
     }
 
-    public void getTpEnable(CallbackContext callbackContext){
-        try {
-            boolean enable = leyuService.getTpEnable();
-            callbackContext.success("enable");
-        } catch (RemoteException e) {
-            callbackContext.error("获取乐愚状态失败！");
-            e.printStackTrace();
-        }
-    }
-
-    public void setTpEnable(boolean enable, CallbackContext callbackContext){
-        try {
-            leyuService.setTpEnable(enable);
-            callbackContext.success();
-        } catch (RemoteException e) {
-            callbackContext.error("设置乐愚状态失败！");
-            e.printStackTrace();
-        }
-    }
 }
