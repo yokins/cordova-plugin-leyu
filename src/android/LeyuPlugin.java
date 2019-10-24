@@ -57,16 +57,18 @@ public class LeyuPlugin extends CordovaPlugin {
             e.printStackTrace();
         }
     }
-    private void getTpEnable(){
+    private void getTpEnable(CallbackContext callbackContext){
         Log.i(TAG, "getTpEnable:");//lishunbo add
         try {
             boolean enable = leyuService.getTpEnable();
             if(enable){
                 //Toast.makeText(mContext, "当前状态:禁止手指", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "enable finger");
+                callbackContext.success('true')
             }else {
                 //Toast.makeText(mContext, "当前状态:允许手指", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "disable finger");
+                callbackContext.error('false')
             }
         } catch (RemoteException e) {
             Log.e(TAG, "getTpEnable-error:"+e);//lishunbo add
@@ -92,8 +94,8 @@ public class LeyuPlugin extends CordovaPlugin {
             callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
             return true;
         } else if ("getTpEnable".equals(action)) {
-            getTpEnable();
-            callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
+            getTpEnable(callbackContext);
+            // callbackContext.success("finish");//如果不调用success回调，则js中successCallback不会执行
             return true;
         } else if ("setTpEnable".equals(action)) {
             boolean enabled = args.getBoolean(0);

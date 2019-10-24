@@ -23,7 +23,23 @@ const leyu = {
    * @return:
    */
   getTpEnable: function() {
-    exec(() => {}, () => {}, 'LeyuPlugin', 'getTpEnable', []);
+    return new Promise(resolve => {
+      exec(
+        success => {
+          if (success) {
+            resolve(true);
+          }
+        },
+        error => {
+          if (error) {
+            resolve(false);
+          }
+        },
+        'LeyuPlugin',
+        'getTpEnable',
+        []
+      );
+    });
   },
   /**
    * @description: 设置状态
